@@ -8,12 +8,8 @@ body {
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
 
-  .container {
+  .jumbotron {
     text-align: center;
   }
 
@@ -29,5 +25,13 @@ body {
   button {
     padding: 8px;
     cursor: pointer;
+  }
+
+  #weatherInfo {
+    img {
+      height: 64px;
+      width: 64px;
+      display: block;
+    }
   }
 }

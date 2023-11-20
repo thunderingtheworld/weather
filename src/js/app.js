@@ -15,7 +15,14 @@ initBootstrap({
 
 
 async function getWeather() {
-  console.log("getWeather called");
+  // Idea: Would be nice to show a loading spinner
+  // Idea: Would be nice to flicker the UI so users notice that it's been updated
+  // Idea: For all types of errors, show red/yellow bootstrap alerts
+
+  // Bonus points: Would be nice to add show more days
+  // TODO: Decide whether doing more days or making current weather larger in UI.
+
+  document.getElementById('weatherResultsDiv').style.display = 'block';
 
   const cityInput = document.getElementById("cityInput");
   const weatherInfo = document.getElementById("weatherInfo");
@@ -43,12 +50,31 @@ async function getWeather() {
     console.log(data);
 
     weatherInfo.innerHTML = `
-    <img src="${data.current.condition.icon}">
-    <p><i>${data.current.condition.text}</i></p>
-    <p>Temperature: ${data.current.temp_c}°C</p>
-    <p>Humidity: ${data.current.humidity}%</p>
-    <p><small>Information last updated at: ${data.current.last_updated}</small></p>
-  `;
+      <div class="card mb-4 box-shadow">
+        <div class="card-body">
+          <div class="text-left">
+            <div class="card-text pb-1">
+              ${data.location.name}, ${data.location.country}
+            </div>
+          </div>
+          <h5 class="card-title">Temperature: ${data.current.temp_c}°C</h5>
+          <p class="card-text">Humidity: ${data.current.humidity}%</p>
+          
+          <div class="d-flex justify-content-center align-items-center">
+            <img 
+              class="card-img" 
+              alt="Current weather icon" 
+              src="${data.current.condition.icon}"
+            >
+          </div>
+          <p class="card-text text-muted">${data.current.condition.text}</p>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <small class="text-muted">Last updated ${data.current.last_updated}</small>
+          </div>
+        </div>
+      </div>
+    `;
   } catch (error) {
     weatherInfo.innerHTML = `<p>Error fetching weather data: ${error.message}</p>`;
   }
@@ -56,6 +82,8 @@ async function getWeather() {
 
 // Wait for the DOM to be fully loaded
 document.addEventListener("DOMContentLoaded", function () {
+  // hide div with background color:
+  document.getElementById('weatherResultsDiv').style.display = 'none';
 
   // focused input on entering page:
   document.getElementById('cityInput').focus();
