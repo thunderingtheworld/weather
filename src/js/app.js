@@ -70,7 +70,7 @@ async function getWeather() {
           <p class="card-text text-muted">${data.current.condition.text}</p>
 
           <div class="d-flex justify-content-between align-items-center">
-            <small class="text-muted">Last updated ${data.current.last_updated}</small>
+            <small class="text-muted">Last updated ${formatUSDateTime(data.current.last_updated)} local time</small>
           </div>
         </div>
       </div>
@@ -78,6 +78,12 @@ async function getWeather() {
   } catch (error) {
     weatherInfo.innerHTML = `<p>Error fetching weather data: ${error.message}</p>`;
   }
+}
+
+function formatUSDateTime(dateString) {
+  const date = new Date(dateString);
+  const options = { weekday: 'long', hour: 'numeric', minute: '2-digit', hour12: true };
+  return date.toLocaleDateString('en-US', options);
 }
 
 // Wait for the DOM to be fully loaded
