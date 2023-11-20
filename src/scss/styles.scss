@@ -1,8 +1,4 @@
-/* src/scss/styles.scss */
-
 @import '../../node_modules/bootstrap/scss/bootstrap';
-
-// // @import "~bootstrap/scss/bootstrap";
 
 body {
   font-family: 'Arial', sans-serif;
@@ -15,27 +11,24 @@ body {
 
   .jumbotron {
     text-align: center;
-  }
 
-  input {
-    padding: 8px;
-    margin-right: 8px;
-
-    &#cityInput {
+    #cityInput {
       max-width: 500px;
+      padding: 8px;
+      margin-right: 8px;
     }
-  }
 
-  button {
-    padding: 8px;
-    cursor: pointer;
+    button {
+      padding: 8px;
+      cursor: pointer;
+    }
   }
 
   #weatherResultsDiv {
     // To make lower section fill out screen below:
     flex: 1;
 
-    #weatherInfo {
+    #weatherTodayInfo {
 
       .card {
         border-radius: 16px;

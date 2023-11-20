@@ -1,36 +1,33 @@
-console.log("app.js has been transpiled");
-
 // Load Styles
 import "../scss/styles.scss";
 
 // Load Bootstrap init
 import { initBootstrap } from "./bootstrap.js";
 
-// Loading bootstrap with optional features
+// Loading bootstrap with optional features, just in case 
+// I'll need them (speed over perfection in this case):
 initBootstrap({
   tooltip: true,
   popover: true,
   toasts: true,
 });
 
-
-async function getWeather() {
+async function displayWeatherForCity() {
   // Idea: Would be nice to show a loading spinner
   // Idea: Would be nice to flicker the UI so users notice that it's been updated
-  // Idea: For all types of errors, show red/yellow bootstrap alerts
   // Idea: Indicate that city found is nearest match to search query, not
   //    necessarily the right city.
-
-  // Bonus points: Would be nice to add show more days
-  // TODO: Decide whether doing more days or making current weather larger in UI.
+  // Bonus points: Would be nice to add more days. Not doing.
 
   document.getElementById('weatherResultsDiv').style.display = 'block';
 
   const cityInput = document.getElementById("cityInput");
-  const weatherInfo = document.getElementById("weatherInfo");
+  const weatherTodayInfo = document.getElementById("weatherTodayInfo");
 
   const city = cityInput.value;
   if (!city) {
+    // Would fix if had time: Alerts are not nice user experience
+    // in my opinion... Would prefer alternative method.
     alert("Please enter a city name.");
     return;
   }
@@ -42,16 +39,12 @@ async function getWeather() {
     const response = await fetch(apiUrl);
 
     if (!response.ok) {
-      // TODO: Add more error handling
-      // Implement basic error handling for cases like invalid city names or API failures.
       throw new Error("City not found");
     }
 
     const data = await response.json();
 
-    console.log(data);
-
-    weatherInfo.innerHTML = `
+    weatherTodayInfo.innerHTML = `
       <div class="card mb-4 box-shadow">
         <div class="card-header p-3 bg-transparent">
           <div class="d-flex">
@@ -81,10 +74,12 @@ async function getWeather() {
           <p class="card-text">Temperature: ${data.current.temp_c}°C</p>
           <p class="card-text">Humidity: ${data.current.humidity}%</p>
         </div>
-      </div>
-    `;
+      </div>`;
   } catch (error) {
-    weatherInfo.innerHTML = `<p>Error fetching weather data: ${error.message}</p>`;
+    weatherTodayInfo.innerHTML = `
+      <div class="alert alert-danger" role="alert">
+        Error fetching weather data: ${error.message}
+      </div>`;
   }
 }
 
@@ -96,6 +91,7 @@ function formatUSDateTime(dateString) {
 
 // Wait for the DOM to be fully loaded
 document.addEventListener("DOMContentLoaded", function () {
+  
   // hide div with background color:
   document.getElementById('weatherResultsDiv').style.display = 'none';
 
@@ -104,6 +100,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.getElementById('weatherForm').addEventListener('submit', function (event) {
     event.preventDefault();
-    getWeather();
+    displayWeatherForCity();
   });
 });
