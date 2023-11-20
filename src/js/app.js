@@ -55,7 +55,10 @@ async function getWeather() {
       <div class="card mb-4 box-shadow">
         <div class="card-header p-3 bg-transparent">
           <div class="d-flex">
-              <span class="flex-grow-1">
+              <span 
+                id="location-span"
+                class="flex-grow-1"
+              >
                 ${data.location.name}, ${data.location.country}
               </span>
               <span>
