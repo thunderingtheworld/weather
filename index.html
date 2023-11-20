@@ -9,10 +9,19 @@
     <title>Weather App</title>
   </head>
   <body>
-    <div class="container">
-      <input type="text" id="cityInput" placeholder="Enter city" />
-      
-      <button id="submitCity">Get Weather</button>
+    <div class="container mt-5">
+      <!-- hero element or card? see bootstrap examples -->
+      <h1>Worldwide weather</h1>
+      <p>Get the weather news for any city in the world!</p>
+      <form id="weatherForm">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" id="cityInput" placeholder="Enter city" />
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">Get Weather</button>
+          </div>
+        </div>
+      </form>
+
       <div id="weatherInfo"></div>
     </div>
     <script src="js/main.js"></script>

@@ -20,6 +20,10 @@ body {
   input {
     padding: 8px;
     margin-right: 8px;
+
+    &#cityInput {
+      max-width: 500px;
+    }
   }
 
   button {
