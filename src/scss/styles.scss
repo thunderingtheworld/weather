@@ -8,6 +8,10 @@ body {
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
+  display: flex;
+  // To make lower section fill out screen below:
+  flex-direction: column;
+  height: 100vh;
 
   .jumbotron {
     text-align: center;
@@ -27,15 +31,20 @@ body {
     cursor: pointer;
   }
 
-  #weatherInfo {
+  #weatherResultsDiv {
+    // To make lower section fill out screen below:
+    flex: 1;
 
-    .card {
-      border-radius: 16px;
-      
-      img {
-        height: 64px;
-        width: 64px;
-        display: block;
+    #weatherInfo {
+
+      .card {
+        border-radius: 16px;
+
+        img {
+          height: 64px;
+          width: 64px;
+          display: block;
+        }
       }
     }
   }
