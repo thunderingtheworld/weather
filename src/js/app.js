@@ -98,6 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // focused input on entering page:
   document.getElementById('cityInput').focus();
 
+  // Would fix if had time: Function seems to run twice instead of once:
   document.getElementById('weatherForm').addEventListener('submit', function (event) {
     event.preventDefault();
     displayWeatherForCity();
