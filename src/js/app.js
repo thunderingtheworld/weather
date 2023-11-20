@@ -18,6 +18,8 @@ async function getWeather() {
   // Idea: Would be nice to show a loading spinner
   // Idea: Would be nice to flicker the UI so users notice that it's been updated
   // Idea: For all types of errors, show red/yellow bootstrap alerts
+  // Idea: Indicate that city found is nearest match to search query, not
+  //    necessarily the right city.
 
   // Bonus points: Would be nice to add show more days
   // TODO: Decide whether doing more days or making current weather larger in UI.
@@ -51,14 +53,20 @@ async function getWeather() {
 
     weatherInfo.innerHTML = `
       <div class="card mb-4 box-shadow">
-        <div class="card-header bg-transparent">
-          ${data.location.name}, ${data.location.country}
+        <div class="card-header p-3 bg-transparent">
+          <div class="d-flex">
+              <span class="flex-grow-1">
+                ${data.location.name}, ${data.location.country}
+              </span>
+              <span>
+                <small class="text-muted">
+                  ${formatUSDateTime(data.current.last_updated)}
+                </small>
+              </span>
+            </div>
         </div>
 
-        <div class="card-body">
-          <h5 class="card-title">Temperature: ${data.current.temp_c}°C</h5>
-          <p class="card-text">Humidity: ${data.current.humidity}%</p>
-          
+        <div class="card-body pb-5 text-center">
           <div class="d-flex justify-content-center align-items-center">
             <img 
               class="card-img" 
@@ -67,12 +75,8 @@ async function getWeather() {
             >
           </div>
           <p class="card-text text-muted">${data.current.condition.text}</p>
-        </div>
-
-        <div class="card-footer bg-transparent">
-          <small class="text-muted">
-            Last updated ${formatUSDateTime(data.current.last_updated)} local time
-          </small>
+          <p class="card-text">Temperature: ${data.current.temp_c}°C</p>
+          <p class="card-text">Humidity: ${data.current.humidity}%</p>
         </div>
       </div>
     `;

@@ -28,10 +28,15 @@ body {
   }
 
   #weatherInfo {
-    img {
-      height: 64px;
-      width: 64px;
-      display: block;
+
+    .card {
+      border-radius: 16px;
+      
+      img {
+        height: 64px;
+        width: 64px;
+        display: block;
+      }
     }
   }
 }
