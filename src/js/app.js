@@ -51,12 +51,11 @@ async function getWeather() {
 
     weatherInfo.innerHTML = `
       <div class="card mb-4 box-shadow">
+        <div class="card-header bg-transparent">
+          ${data.location.name}, ${data.location.country}
+        </div>
+
         <div class="card-body">
-          <div class="text-left">
-            <div class="card-text pb-1">
-              ${data.location.name}, ${data.location.country}
-            </div>
-          </div>
           <h5 class="card-title">Temperature: ${data.current.temp_c}°C</h5>
           <p class="card-text">Humidity: ${data.current.humidity}%</p>
           
@@ -68,10 +67,12 @@ async function getWeather() {
             >
           </div>
           <p class="card-text text-muted">${data.current.condition.text}</p>
+        </div>
 
-          <div class="d-flex justify-content-between align-items-center">
-            <small class="text-muted">Last updated ${formatUSDateTime(data.current.last_updated)} local time</small>
-          </div>
+        <div class="card-footer bg-transparent">
+          <small class="text-muted">
+            Last updated ${formatUSDateTime(data.current.last_updated)} local time
+          </small>
         </div>
       </div>
     `;
