@@ -12,7 +12,7 @@ Run `npm install` in terminal.
 
 ## Configuration
 
-Signup for free on weatherapi.com and place an API key from there in an .env file you create yourself in project root like this:
+Signup for free on [weatherapi.com](https://www.weatherapi.com/). and place an API key from there in a file named **.env** you create yourself in project root containing text like this (replace with your key):
 
 ```
 WEATHER_API_KEY="YOUR_KEY_HERE"
