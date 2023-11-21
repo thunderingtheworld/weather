@@ -12,7 +12,10 @@ initBootstrap({
   toasts: true,
 });
 
-/* Improvement ideas for this runSearch() function below:
+/* 
+runSearch() searches for the weather in a city of a user's choosing
+
+Improvement ideas for this runSearch() function below:
 - Would be nice to show a loading spinner
 - Would be nice to flicker the UI so users notice that it's been updated
 - Indicate that city found is nearest match to search query, 
@@ -50,9 +53,9 @@ async function runSearch() {
     const errorMessage = `Error fetching weather data: ${error.message}`;
     displayError(errorMessage);
   }
-}
+} 
 
-// shows weather today for the city user searched for
+// shows the search result: weather today in a specific city
 function displaySearchResult(data) {
   const searchResultsDiv = document.getElementById("searchResults");
   searchResultsDiv.innerHTML = `
@@ -105,10 +108,8 @@ function formatUSDateTime(dateString) {
 
 // Wait for the DOM to be fully loaded
 document.addEventListener("DOMContentLoaded", function () {
-  
   // hide div with background color:
   document.getElementById('searchResultsWrapper').style.display = 'none';
-
   // focused input on entering page:
   document.getElementById('cityInput').focus();
 
@@ -116,5 +117,9 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById('citySearchForm').addEventListener('submit', function (event) {
     event.preventDefault();
     runSearch();
+    // Alternatively we could rename from "runSearch" to "lookupWeatherInCity"
+    // And then we could refactor for readability so lookupWeatherInCity() 
+    // returns result or error, and we have code here to display those
+    // instead of lookupWeatherInCity() calling display functions itself
   });
 });
