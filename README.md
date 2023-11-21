@@ -6,7 +6,7 @@ Powered by [WeatherAPI.com](https://www.weatherapi.com/). Icons from there too.
 
 ## Installation
 
-Clone this repository.
+Clone this repository and go into its folder.
 
 Run `npm install` in terminal.
 
