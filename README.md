@@ -2,6 +2,8 @@
 
 Get the current weather for any city in the world!
 
+![Screenshot of app](src/img/screenshot_of_app.png)
+
 Powered by [WeatherAPI.com](https://www.weatherapi.com/). Icons from there too.
 
 ## Installation
