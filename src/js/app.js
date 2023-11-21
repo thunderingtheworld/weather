@@ -50,15 +50,13 @@ async function runSearch() {
     // successful search so we show result:
     displaySearchResult(data);
   } catch (error) {
-    const errorMessage = `Error fetching weather data: ${error.message}`;
-    displayError(errorMessage);
+    displayError(`Error fetching weather data: ${error.message}`);
   }
 } 
 
 // shows the search result: weather today in a specific city
 function displaySearchResult(data) {
-  const searchResultsDiv = document.getElementById("searchResults");
-  searchResultsDiv.innerHTML = `
+  document.getElementById("searchResults").innerHTML = `
     <div class="card mb-4 box-shadow">
       <div class="card-header p-3 bg-transparent">
         <div class="d-flex">
@@ -101,8 +99,7 @@ function displaySearchResult(data) {
 }
 
 function displayError(error) {
-  const searchResultsDiv = document.getElementById("searchResults");
-  searchResultsDiv.innerHTML = `
+  document.getElementById("searchResults").innerHTML = `
     <div class="alert alert-danger" role="alert">
       ${error}
     </div>`;
