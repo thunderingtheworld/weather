@@ -66,11 +66,11 @@ function displaySearchResult(data) {
               id="location-span"
               class="flex-grow-1"
             >
-              ${data.location.name}, ${data.location.country}
+              <strong>${data.location.name}</strong>
             </span>
             <span>
               <small class="text-muted">
-                ${formatUSDateTime(data.current.last_updated)}
+                ${data.location.country}
               </small>
             </span>
           </div>
@@ -84,9 +84,17 @@ function displaySearchResult(data) {
             src="${data.current.condition.icon}"
           >
         </div>
-        <p class="card-text text-muted">${data.current.condition.text}</p>
-        <p class="card-text">Temperature: ${data.current.temp_c}°C</p>
+        <p class="card-text">${data.current.condition.text}</p>
+        <p class="card-text">
+          Temperature: <strong>${data.current.temp_c}°C</strong>
+        </p>
         <p class="card-text">Humidity: ${data.current.humidity}%</p>
+      </div>
+
+      <div class="card-footer p-3 bg-transparent">
+        <small class="text-muted">
+          Last updated: ${formatUSDateTime(data.current.last_updated)} local time
+        </small>
       </div>
     </div>
   `;
