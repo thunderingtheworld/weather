@@ -26,11 +26,12 @@ async function displayWeatherForCity() {
 
   const city = cityInput.value;
   if (!city) {
-    // Would fix if had time: Alerts are not nice user experience
-    // in my opinion... Would prefer alternative method.
-    alert("Please enter a city name.");
+    // If city input is empty we display an error message
+    displayError("Please enter a city name.");
     return;
   }
+  // Here we could add an error if city name is short such as only 1 letter
+  // but skipping due to time constraints.
 
   const API_KEY = process.env.WEATHER_API_KEY;
   const apiUrl = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${city}&days=5&aqi=no&alerts=no`
@@ -76,11 +77,16 @@ async function displayWeatherForCity() {
         </div>
       </div>`;
   } catch (error) {
-    searchResults.innerHTML = `
-      <div class="alert alert-danger" role="alert">
-        Error fetching weather data: ${error.message}
-      </div>`;
+    const errorMessage = `Error fetching weather data: ${error.message}`;
+    displayError(errorMessage);
   }
+}
+
+function displayError(error) {
+  searchResults.innerHTML = `
+    <div class="alert alert-danger" role="alert">
+      ${error}
+    </div>`;
 }
 
 function formatUSDateTime(dateString) {
