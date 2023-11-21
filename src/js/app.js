@@ -19,7 +19,7 @@ async function displayWeatherForCity() {
   //    necessarily the right city.
   // Bonus points: Would be nice to add more days. Not doing.
 
-  document.getElementById('weatherResultsDiv').style.display = 'block';
+  document.getElementById('searchResultsWrapper').style.display = 'block';
 
   const cityInput = document.getElementById("cityInput");
   const weatherTodayInfo = document.getElementById("weatherTodayInfo");
@@ -93,7 +93,7 @@ function formatUSDateTime(dateString) {
 document.addEventListener("DOMContentLoaded", function () {
   
   // hide div with background color:
-  document.getElementById('weatherResultsDiv').style.display = 'none';
+  document.getElementById('searchResultsWrapper').style.display = 'none';
 
   // focused input on entering page:
   document.getElementById('cityInput').focus();
