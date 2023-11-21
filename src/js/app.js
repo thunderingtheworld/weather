@@ -22,7 +22,7 @@ async function displayWeatherForCity() {
   document.getElementById('searchResultsWrapper').style.display = 'block';
 
   const cityInput = document.getElementById("cityInput");
-  const weatherTodayInfo = document.getElementById("weatherTodayInfo");
+  const searchResults = document.getElementById("searchResults");
 
   const city = cityInput.value;
   if (!city) {
@@ -44,7 +44,7 @@ async function displayWeatherForCity() {
 
     const data = await response.json();
 
-    weatherTodayInfo.innerHTML = `
+    searchResults.innerHTML = `
       <div class="card mb-4 box-shadow">
         <div class="card-header p-3 bg-transparent">
           <div class="d-flex">
@@ -76,7 +76,7 @@ async function displayWeatherForCity() {
         </div>
       </div>`;
   } catch (error) {
-    weatherTodayInfo.innerHTML = `
+    searchResults.innerHTML = `
       <div class="alert alert-danger" role="alert">
         Error fetching weather data: ${error.message}
       </div>`;
