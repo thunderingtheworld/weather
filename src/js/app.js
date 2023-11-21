@@ -36,7 +36,7 @@ async function runSearch() {
   }
 
   const API_KEY = process.env.WEATHER_API_KEY;
-  const apiUrl = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${city}&days=5&aqi=no&alerts=no`
+  const apiUrl = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${city}&days=1&aqi=no&alerts=no`
 
   try {
     const response = await fetch(apiUrl);
