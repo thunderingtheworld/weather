@@ -84,7 +84,7 @@ function displaySearchResult(data) {
             src="${data.current.condition.icon}"
           >
         </div>
-        <p class="card-text">${data.current.condition.text}</p>
+        <p class="card-text"><i>${data.current.condition.text}</i></p>
         <p class="card-text">
           Temperature: <strong>${data.current.temp_c}°C</strong>
         </p>
