@@ -12,17 +12,20 @@ initBootstrap({
   toasts: true,
 });
 
-async function displayWeatherForCity() {
-  // Idea: Would be nice to show a loading spinner
-  // Idea: Would be nice to flicker the UI so users notice that it's been updated
-  // Idea: Indicate that city found is nearest match to search query, not
-  //    necessarily the right city.
-  // Bonus points: Would be nice to add more days. Not doing.
-
+/* Improvement ideas for this runSearch() function below:
+- Would be nice to show a loading spinner
+- Would be nice to flicker the UI so users notice that it's been updated
+- Indicate that city found is nearest match to search query, 
+  not necessarily the right city. Especially if much difference 
+  between city name of search result and in search input.
+- Bonus points: Would be nice to add more days.
+*/
+async function runSearch() {
+  // show wrapper:
   document.getElementById('searchResultsWrapper').style.display = 'block';
 
   const cityInput = document.getElementById("cityInput");
-  const searchResults = document.getElementById("searchResults");
+  const searchResultsDiv = document.getElementById("searchResults");
 
   const city = cityInput.value;
   if (!city) {
@@ -30,8 +33,6 @@ async function displayWeatherForCity() {
     displayError("Please enter a city name.");
     return;
   }
-  // Here we could add an error if city name is short such as only 1 letter
-  // but skipping due to time constraints.
 
   const API_KEY = process.env.WEATHER_API_KEY;
   const apiUrl = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${city}&days=5&aqi=no&alerts=no`
@@ -45,7 +46,7 @@ async function displayWeatherForCity() {
 
     const data = await response.json();
 
-    searchResults.innerHTML = `
+    searchResultsDiv.innerHTML = `
       <div class="card mb-4 box-shadow">
         <div class="card-header p-3 bg-transparent">
           <div class="d-flex">
@@ -83,7 +84,8 @@ async function displayWeatherForCity() {
 }
 
 function displayError(error) {
-  searchResults.innerHTML = `
+  const searchResultsDiv = document.getElementById("searchResults");
+  searchResultsDiv.innerHTML = `
     <div class="alert alert-danger" role="alert">
       ${error}
     </div>`;
@@ -107,6 +109,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // Would fix if had time: Function seems to run twice instead of once:
   document.getElementById('citySearchForm').addEventListener('submit', function (event) {
     event.preventDefault();
-    displayWeatherForCity();
+    runSearch();
   });
 });
