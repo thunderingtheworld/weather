@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/main.css" />
     <title>Worldwide weather</title>
+    <!-- would add a favicon etc if I had plenty of time -->
   </head>
   <body>
     <section class="jumbotron text-center py-5">
       <div class="container">
         <h1 class="jumbotron-heading">Worldwide weather</h1>
-        <p class="lead text-muted">Get the weather news for any city in the world!</p>
-        <form id="weatherForm">
+        <p class="lead text-muted">Get the current weather for any city in the world!</p>
+        <form id="citySearchForm">
           <div class="input-group mb-3 d-flex justify-content-center align-items-center">
             <input 
               type="text" 
@@ -29,12 +30,12 @@
       </div>
     </section>
 
-    <div id="weatherResultsDiv" class="py-5 bg-light">
+    <div id="searchResultsWrapper" class="py-5 bg-light">
       <div class="container">
         <div class="row">
           <div class="col">
             <div 
-              id="weatherTodayInfo" 
+              id="searchResults" 
               class="d-flex justify-content-center align-items-center"
             ></div>
           </div>

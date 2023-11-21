@@ -12,28 +12,31 @@ initBootstrap({
   toasts: true,
 });
 
-async function displayWeatherForCity() {
-  // Idea: Would be nice to show a loading spinner
-  // Idea: Would be nice to flicker the UI so users notice that it's been updated
-  // Idea: Indicate that city found is nearest match to search query, not
-  //    necessarily the right city.
-  // Bonus points: Would be nice to add more days. Not doing.
+/* 
+runSearch() searches for the weather in a city of a user's choosing
 
-  document.getElementById('weatherResultsDiv').style.display = 'block';
+Improvement ideas for this runSearch() function below:
+- Would be nice to show a loading spinner
+- Would be nice to flicker the UI so users notice that it's been updated
+- Indicate that city found is nearest match to search query, 
+  not necessarily the right city. Especially if much difference 
+  between city name of search result and in search input.
+- Bonus points: Would be nice to add more days.
+*/
+async function runSearch() {
+  // show wrapper:
+  document.getElementById('searchResultsWrapper').style.display = 'block';
 
   const cityInput = document.getElementById("cityInput");
-  const weatherTodayInfo = document.getElementById("weatherTodayInfo");
-
   const city = cityInput.value;
   if (!city) {
-    // Would fix if had time: Alerts are not nice user experience
-    // in my opinion... Would prefer alternative method.
-    alert("Please enter a city name.");
+    // If city input is empty we display an error message
+    displayError("Please enter a city name.");
     return;
   }
 
   const API_KEY = process.env.WEATHER_API_KEY;
-  const apiUrl = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${city}&days=5&aqi=no&alerts=no`
+  const apiUrl = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${city}&days=5&aqi=no&alerts=no`
 
   try {
     const response = await fetch(apiUrl);
@@ -44,43 +47,65 @@ async function displayWeatherForCity() {
 
     const data = await response.json();
 
-    weatherTodayInfo.innerHTML = `
-      <div class="card mb-4 box-shadow">
-        <div class="card-header p-3 bg-transparent">
-          <div class="d-flex">
-              <span 
-                id="location-span"
-                class="flex-grow-1"
-              >
-                ${data.location.name}, ${data.location.country}
-              </span>
-              <span>
-                <small class="text-muted">
-                  ${formatUSDateTime(data.current.last_updated)}
-                </small>
-              </span>
-            </div>
-        </div>
-
-        <div class="card-body pb-5 text-center">
-          <div class="d-flex justify-content-center align-items-center">
-            <img 
-              class="card-img" 
-              alt="Current weather icon" 
-              src="${data.current.condition.icon}"
-            >
-          </div>
-          <p class="card-text text-muted">${data.current.condition.text}</p>
-          <p class="card-text">Temperature: ${data.current.temp_c}°C</p>
-          <p class="card-text">Humidity: ${data.current.humidity}%</p>
-        </div>
-      </div>`;
+    // successful search so we show result:
+    displaySearchResult(data);
   } catch (error) {
-    weatherTodayInfo.innerHTML = `
-      <div class="alert alert-danger" role="alert">
-        Error fetching weather data: ${error.message}
-      </div>`;
+    const errorMessage = `Error fetching weather data: ${error.message}`;
+    displayError(errorMessage);
   }
+} 
+
+// shows the search result: weather today in a specific city
+function displaySearchResult(data) {
+  const searchResultsDiv = document.getElementById("searchResults");
+  searchResultsDiv.innerHTML = `
+    <div class="card mb-4 box-shadow">
+      <div class="card-header p-3 bg-transparent">
+        <div class="d-flex">
+            <span 
+              id="location-span"
+              class="flex-grow-1"
+            >
+              <strong>${data.location.name}</strong>
+            </span>
+            <span>
+              <small class="text-muted">
+                ${data.location.country}
+              </small>
+            </span>
+          </div>
+      </div>
+
+      <div class="card-body pb-5 text-center">
+        <div class="d-flex justify-content-center align-items-center">
+          <img 
+            class="card-img" 
+            alt="Current weather icon" 
+            src="${data.current.condition.icon}"
+          >
+        </div>
+        <p class="card-text">${data.current.condition.text}</p>
+        <p class="card-text">
+          Temperature: <strong>${data.current.temp_c}°C</strong>
+        </p>
+        <p class="card-text">Humidity: ${data.current.humidity}%</p>
+      </div>
+
+      <div class="card-footer p-3 bg-transparent">
+        <small class="text-muted">
+          Last updated: ${formatUSDateTime(data.current.last_updated)} local time
+        </small>
+      </div>
+    </div>
+  `;
+}
+
+function displayError(error) {
+  const searchResultsDiv = document.getElementById("searchResults");
+  searchResultsDiv.innerHTML = `
+    <div class="alert alert-danger" role="alert">
+      ${error}
+    </div>`;
 }
 
 function formatUSDateTime(dateString) {
@@ -91,16 +116,18 @@ function formatUSDateTime(dateString) {
 
 // Wait for the DOM to be fully loaded
 document.addEventListener("DOMContentLoaded", function () {
-  
   // hide div with background color:
-  document.getElementById('weatherResultsDiv').style.display = 'none';
-
+  document.getElementById('searchResultsWrapper').style.display = 'none';
   // focused input on entering page:
   document.getElementById('cityInput').focus();
 
   // Would fix if had time: Function seems to run twice instead of once:
-  document.getElementById('weatherForm').addEventListener('submit', function (event) {
+  document.getElementById('citySearchForm').addEventListener('submit', function (event) {
     event.preventDefault();
-    displayWeatherForCity();
+    runSearch();
+    // Alternatively we could rename from "runSearch" to "lookupWeatherInCity"
+    // And then we could refactor for readability so lookupWeatherInCity() 
+    // returns result or error, and we have code here to display those
+    // instead of lookupWeatherInCity() calling display functions itself
   });
 });
