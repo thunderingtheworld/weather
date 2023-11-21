@@ -25,8 +25,6 @@ async function runSearch() {
   document.getElementById('searchResultsWrapper').style.display = 'block';
 
   const cityInput = document.getElementById("cityInput");
-  const searchResultsDiv = document.getElementById("searchResults");
-
   const city = cityInput.value;
   if (!city) {
     // If city input is empty we display an error message
@@ -46,41 +44,49 @@ async function runSearch() {
 
     const data = await response.json();
 
-    searchResultsDiv.innerHTML = `
-      <div class="card mb-4 box-shadow">
-        <div class="card-header p-3 bg-transparent">
-          <div class="d-flex">
-              <span 
-                id="location-span"
-                class="flex-grow-1"
-              >
-                ${data.location.name}, ${data.location.country}
-              </span>
-              <span>
-                <small class="text-muted">
-                  ${formatUSDateTime(data.current.last_updated)}
-                </small>
-              </span>
-            </div>
-        </div>
-
-        <div class="card-body pb-5 text-center">
-          <div class="d-flex justify-content-center align-items-center">
-            <img 
-              class="card-img" 
-              alt="Current weather icon" 
-              src="${data.current.condition.icon}"
-            >
-          </div>
-          <p class="card-text text-muted">${data.current.condition.text}</p>
-          <p class="card-text">Temperature: ${data.current.temp_c}°C</p>
-          <p class="card-text">Humidity: ${data.current.humidity}%</p>
-        </div>
-      </div>`;
+    // successful search so we show result:
+    displaySearchResult(data);
   } catch (error) {
     const errorMessage = `Error fetching weather data: ${error.message}`;
     displayError(errorMessage);
   }
+}
+
+// shows weather today for the city user searched for
+function displaySearchResult(data) {
+  const searchResultsDiv = document.getElementById("searchResults");
+  searchResultsDiv.innerHTML = `
+    <div class="card mb-4 box-shadow">
+      <div class="card-header p-3 bg-transparent">
+        <div class="d-flex">
+            <span 
+              id="location-span"
+              class="flex-grow-1"
+            >
+              ${data.location.name}, ${data.location.country}
+            </span>
+            <span>
+              <small class="text-muted">
+                ${formatUSDateTime(data.current.last_updated)}
+              </small>
+            </span>
+          </div>
+      </div>
+
+      <div class="card-body pb-5 text-center">
+        <div class="d-flex justify-content-center align-items-center">
+          <img 
+            class="card-img" 
+            alt="Current weather icon" 
+            src="${data.current.condition.icon}"
+          >
+        </div>
+        <p class="card-text text-muted">${data.current.condition.text}</p>
+        <p class="card-text">Temperature: ${data.current.temp_c}°C</p>
+        <p class="card-text">Humidity: ${data.current.humidity}%</p>
+      </div>
+    </div>
+  `;
 }
 
 function displayError(error) {
