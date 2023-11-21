@@ -1,6 +1,6 @@
 # Worldwide weather
 
-Get the weather news for any city in the world!
+Get the current weather for any city in the world!
 
 Powered by [WeatherAPI.com](https://www.weatherapi.com/). Icons from there too.
 
