@@ -1,7 +1,4 @@
-// Load Styles
 import "../scss/styles.scss";
-
-// Load Bootstrap init
 import { initBootstrap } from "./bootstrap.js";
 
 // Loading bootstrap with optional features, just in case 
